@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\v1\ClienteController;
+use App\Http\Controllers\MascotaController;
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get-clientes', [ClienteController::class, 'index']);
+Route::get('/get-mascotas', [MascotaController::class, 'index']);
