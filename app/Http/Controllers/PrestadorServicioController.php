@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\cliente;
+use App\Models\prestador_servicio;
 use Illuminate\Http\Request;
 
-
-
-class ClienteController extends Controller
+class PrestadorServicioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +14,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        try {
-            $cliente = Cliente::with(   'hasOneMascota',
-                                        'hasManyValoracion',
-                                        'hasOneMascota.hasOneTipo', 
-                                        'hasOneMascota.hasManyComplementarioMascota.complementarioMascotasHasManyComplementarioMascotas',
-                                        'hasManyComplementarioCliente',
-                                        'hasManyComplementarioCliente.complementarioClienteHasManyComplementarioCliente')->get();
-            return response()->json($cliente);
-            
+         try {
+            $prestador_servicio = prestador_servicio::all();
+            return response()->json($prestador_servicio);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -47,18 +38,18 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClienteRequest $clienteRequest)
+    public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\prestador_servicio  $prestador_servicio
      * @return \Illuminate\Http\Response
      */
-    public function show(cliente $cliente)
+    public function show(prestador_servicio $prestador_servicio)
     {
         //
     }
@@ -66,10 +57,10 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\prestador_servicio  $prestador_servicio
      * @return \Illuminate\Http\Response
      */
-    public function edit(cliente $cliente)
+    public function edit(prestador_servicio $prestador_servicio)
     {
         //
     }
@@ -78,10 +69,10 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\prestador_servicio  $prestador_servicio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cliente $cliente)
+    public function update(Request $request, prestador_servicio $prestador_servicio)
     {
         //
     }
@@ -89,10 +80,10 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\prestador_servicio  $prestador_servicio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cliente $cliente)
+    public function destroy(prestador_servicio $prestador_servicio)
     {
         //
     }

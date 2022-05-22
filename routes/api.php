@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\v1\ClienteController;
 use App\Http\Controllers\MascotaController;
+use App\Http\Controllers\PrestadorServicioController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/get-clientes', [ClienteController::class, 'index']);
 Route::get('/get-mascotas', [MascotaController::class, 'index']);
+Route::get('/get-prestador-servicio', [PrestadorServicioController::class, 'index']);

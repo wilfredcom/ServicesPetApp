@@ -19,4 +19,9 @@ class cliente extends Model
     {
         return $this->hasMany(complementario_cliente::class, 'cliente_id');
     }
+
+    public function hasManyValoracion()
+    {
+        return $this->hasMany(valoracion::class, 'cliente_id');
+    }
 }
