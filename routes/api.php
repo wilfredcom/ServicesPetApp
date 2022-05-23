@@ -25,4 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/get-clientes', [ClienteController::class, 'index']);
 Route::get('/get-mascotas', [MascotaController::class, 'index']);
+Route::post('/add-mascota', [MascotaController::class, 'store']);
 Route::get('/get-prestador-servicio', [PrestadorServicioController::class, 'index']);
