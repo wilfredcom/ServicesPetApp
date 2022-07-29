@@ -7,7 +7,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
-                <button type="button" class=" float-right 
+                <!-- <button type="button" class=" float-right 
                                             text-white 
                                             bg-gradient-to-r 
                                             from-purple-500 
@@ -27,7 +27,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
                                             mr-2 
                                             mb-2" @click.prevent="setIsOpen(true)">
                     Agregar mascota
-                </button>
+                </button> -->
 
             </h2>
         </template>
@@ -54,24 +54,40 @@ import Welcome from "@/Jetstream/Welcome.vue";
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="p-4">
+                            <!-- <th scope="col" class="p-4">
                                 <div class="flex items-center">
                                     <input id="checkbox-all-search" type="checkbox"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox-all-search" class="sr-only">checkbox</label>
                                 </div>
+                            </th> -->
+                            <th scope="col" class="px-6 py-3">
+                                Tipo de solicitud
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Product name
+                                Crods. Iniciales
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Color
+                                Cords. Finales
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Category
+                                Direccion Inicial
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Price
+                                Direccion Final
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Distancia del Servicio (km)
+                            </th>
+                            
+                            <th scope="col" class="px-6 py-3">
+                                Tiempo Aprox. Del viaje
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Costo
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Estado
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <span class="sr-only">Edit</span>
@@ -80,79 +96,44 @@ import Welcome from "@/Jetstream/Welcome.vue";
                     </thead>
                     <tbody>
                         <tr
+                            v-for="( servicio, s ) in servicios " :key="s"
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="w-4 p-4">
+                            <!-- <td class="w-4 p-4">
                                 <div class="flex items-center">
                                     <input id="checkbox-table-search-1" type="checkbox"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                 </div>
-                            </td>
+                            </td> -->
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                Apple MacBook Pro 17"
+                                {{ servicio.type_solicitud }}
                             </th>
                             <td class="px-6 py-4">
-                                Sliver
+                                lat:{{ JSON.parse(servicio.inicio_ruta_coords).lat  }} - <br/>
+                                Lng: {{ JSON.parse(servicio.inicio_ruta_coords).lng }}
                             </td>
                             <td class="px-6 py-4">
-                                Laptop
+                                lat:{{ JSON.parse(servicio.final_ruta_coords).lat  }} - <br/>
+                                Lng: {{ JSON.parse(servicio.final_ruta_coords).lng }}
                             </td>
                             <td class="px-6 py-4">
-                                $2999
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="w-4 p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-table-search-2" type="checkbox"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-                                </div>
-                            </td>
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="px-6 py-4">
-                                White
+                                {{ servicio.inicio_ruta_address  }} 
                             </td>
                             <td class="px-6 py-4">
-                                Laptop PC
+                               {{ servicio.final_ruta_address  }} 
                             </td>
                             <td class="px-6 py-4">
-                                $1999
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="w-4 p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-table-search-3" type="checkbox"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-                                </div>
-                            </td>
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                Magic Mouse 2
-                            </th>
-                            <td class="px-6 py-4">
-                                Black
+                               {{ JSON.parse(servicio.distancia_servicio).text }}
                             </td>
                             <td class="px-6 py-4">
-                                Accessories
+                               {{ JSON.parse(servicio.tiempo_aproximado_de_viaje).text }}
                             </td>
                             <td class="px-6 py-4">
-                                $99
+                               {{ servicio.costo }}
+                            </td>
+                            <td class="px-6 py-4">
+                               {{ servicio.estado }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="#"
@@ -162,7 +143,6 @@ import Welcome from "@/Jetstream/Welcome.vue";
                     </tbody>
                 </table>
             </div>
-            {{ test }}
             <!-- modal -->
 
 
@@ -170,14 +150,27 @@ import Welcome from "@/Jetstream/Welcome.vue";
     </AppLayout>
 </template>
 <script>
-import { ref, defineComponent } from 'vue'
-export default defineComponent({
-    setup(){
-        const test = ref('hola mundo');
+export default {
+    data(){
         return {
-            test
+            servicios:[],
+        }
+    },
+    mounted() {
+        this.getServicios()
+    },
+    methods: {
+
+        async getServicios() {
+            try {
+                let { data } = await axios('/api/get-servicios')
+                this.servicios = data
+            } catch (e) {
+                console.log(e)
+            }
+
         }
     }
-})
-   
+}
 </script>
+

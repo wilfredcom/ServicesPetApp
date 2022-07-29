@@ -21,7 +21,7 @@
         @inertia
 
         @env ('local')
-            <script src="https://servicespetapp.io/browser-sync/browser-sync-client.js"></script>
+            <!-- <script src="https://servicespetapp.io/browser-sync/browser-sync-client.js"></script> -->
             <script src="flowbite.js"></script>
             <script src="datepicker.js"></script>
         @endenv
