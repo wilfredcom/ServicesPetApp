@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ServicesEvent;
 use App\Models\Servicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,8 @@ class ServicioController extends Controller
                 
                 $servicio->cantidad = $request['paquete']['cantidad'];
                 $servicio->save();
+
+                ServicesEvent::dispatch($servicio);
 
                 return response()->json($servicio);
 
