@@ -12,9 +12,16 @@ class UserController extends Controller
         try {
             $user = User::where('email', $request['email'])->first();
             return response()->json($user);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
-            
-
+    public function index()
+    {
+        try {
+            $users = User::all();
+            return response()->json($users);
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -33,3 +33,4 @@ Route::get('/get-prestador-servicio', [PrestadorServicioController::class, 'inde
 Route::post('/store-servicio', [ServicioController::class, 'store']);
 Route::get('/get-servicios', [ServicioController::class, 'index']);
 Route::post('/get-user', [UserController::class, 'getUser']);
+Route::get('/get-users', [UserController::class, 'index']);

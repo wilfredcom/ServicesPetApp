@@ -22,8 +22,9 @@
 
         @env ('local')
             <!-- <script src="https://servicespetapp.io/browser-sync/browser-sync-client.js"></script> -->
-            <script src="flowbite.js"></script>
-            <script src="datepicker.js"></script>
+            {{-- <script src="flowbite.js"></script> --}}
+            {{-- <script src="datepicker.js"></script> --}}
         @endenv
+        <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     </body>
 </html>
