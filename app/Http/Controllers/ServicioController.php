@@ -12,7 +12,7 @@ class ServicioController extends Controller
     public function index()
     {
         try {
-            $servicios = Servicio::orderBy('id', 'desc')->get();
+            $servicios = Servicio::with(['belongToUser', 'belongToDriver'])->orderBy('id', 'desc')->get();
             return response()->json($servicios);
         } catch (\Throwable $th) {
             throw $th;
