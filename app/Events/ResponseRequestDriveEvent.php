@@ -23,7 +23,7 @@ class ResponseRequestDriveEvent implements ShouldBroadcast
   
     public function broadcastOn()
     {
-        return 'channel-drive';
+        return 'channel-response-resquest-drive';
     }
   
     public function broadcastAs()

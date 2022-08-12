@@ -217,6 +217,15 @@ export default {
                 channel.bind("services-event", function (data) {
                     el.servicios.unshift(data.message)
                 });
+                var channel2 = this.pusher.subscribe("channel-response-resquest-drive");
+                channel2.bind("services-response-request-drive-event", function (data) {
+                     for (const element of el.servicios) {
+                        if(element.id == data.message.id){
+                            element.belong_to_driver = data.message.belong_to_driver
+                        }
+                     }
+                });
+                
             } catch (error) {
                 console.log(error);
             }
