@@ -31,6 +31,8 @@ Route::post('/add-mascota', [MascotaController::class, 'store']);
 Route::get('/get-prestador-servicio', [PrestadorServicioController::class, 'index']);
 
 Route::post('/store-servicio', [ServicioController::class, 'store']);
+Route::post('/store-servicio-drive', [ServicioController::class, 'storeResponseDrive']);
+
 Route::get('/get-servicios', [ServicioController::class, 'index']);
 Route::post('/get-user', [UserController::class, 'getUser']);
 Route::get('/get-users', [UserController::class, 'index']);

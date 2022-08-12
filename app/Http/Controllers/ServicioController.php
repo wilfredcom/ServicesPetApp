@@ -6,7 +6,7 @@ use App\Events\ServicesEvent;
 use App\Models\Servicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Events\ResponseRequestDriveEvent;
 class ServicioController extends Controller
 {
     public function index()
@@ -47,6 +47,27 @@ class ServicioController extends Controller
                 ServicesEvent::dispatch($servicio);
 
                 return response()->json($servicio);
+
+            }, 5);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+    public function storeResponseDrive(Request $request)
+    {
+        try {
+            return DB::transaction(function()use ($request) {
+                $drive = collect(json_decode($request['drive']));
+                $servicio = new Servicio();
+                $servicio->find($request['id'])->update([
+                    "user_conductor_id" => $drive['id']
+                ]);
+
+                $serv = $servicio->with(['belongToUser', 'belongToDriver'])->where('id', $request['id'])->first();
+                
+                ResponseRequestDriveEvent::dispatch($serv);
+
+                // return response()->json($servicio);
 
             }, 5);
         } catch (\Throwable $th) {
