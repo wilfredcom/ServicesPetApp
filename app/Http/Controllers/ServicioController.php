@@ -44,9 +44,11 @@ class ServicioController extends Controller
                 $servicio->cantidad = $request['paquete']['cantidad'];
                 $servicio->save();
 
-                ServicesEvent::dispatch($servicio);
+                $serv = $servicio->with(['belongToUser', 'belongToDriver'])->where('id', $servicio['id'])->first();
 
-                return response()->json($servicio);
+                ServicesEvent::dispatch($serv);
+
+                return response()->json($serv);
 
             }, 5);
         } catch (\Throwable $th) {
@@ -60,7 +62,9 @@ class ServicioController extends Controller
                 $drive = collect(json_decode($request['drive']));
                 $servicio = new Servicio();
                 $servicio->find($request['id'])->update([
-                    "user_conductor_id" => $drive['id']
+                    "user_conductor_id" => $drive['id'],
+                    'acept_servicio_driver' => true,
+                    'estado' => $drive['respuesta']." : Conductor"
                 ]);
 
                 $serv = $servicio->with(['belongToUser', 'belongToDriver'])->where('id', $request['id'])->first();

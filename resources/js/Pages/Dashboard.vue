@@ -59,35 +59,33 @@ import Welcome from "@/Jetstream/Welcome.vue";
                                     <label for="checkbox-all-search" class="sr-only">checkbox</label>
                                 </div>
                             </th> -->
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Tipo de solicitud
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Crods. Iniciales
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Cords. Finales
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Direccion Inicial
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Direccion Final
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Distancia del Servicio (km)
                             </th>
 
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Tiempo Aprox. Del viaje
                             </th>
-                            <th scope="col" class="px-6 py-3">Costo</th>
-                            <th scope="col" class="px-6 py-3">Estado</th>
-                            <th scope="col" class="px-6 py-3">Usuario</th>
-                            <th scope="col" class="px-6 py-3">Conductor</th>
-                            <th scope="col" class="px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                            </th>
+                            <th scope="col" class="px-6 py-3 text-center ">Costo</th>
+                            <th scope="col" class="px-6 py-3 text-center ">Estado</th>
+                            <th scope="col" class="px-6 py-3 text-center ">Usuario</th>
+                            <th scope="col" class="px-6 py-3 text-center ">Conductor</th>
+                            <th scope="col" class="px-6 py-3 text-center ">fecha/hora</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,9 +98,18 @@ import Welcome from "@/Jetstream/Welcome.vue";
                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                 </div>
                             </td> -->
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                <p class="text-center"> {{ servicio.type_solicitud }} </p>
+                            <th scope="row"  class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                <div  :class="servicio.type_solicitud == 'taxi' ? 'bg-yellow-100' : 'bg-blue-100' " class="rounded-lg py-5 px-6 mb-3 text-base text-black inline-flex items-center w-full"
+                                    role="alert">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle"
+                                        class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512">
+                                        <path fill="currentColor"
+                                            d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z">
+                                        </path>
+                                    </svg>
+                                    {{ servicio.type_solicitud }}
+                                </div>
                             </th>
                             <td class="px-6 py-4">
                                 <p class="text-center"> lat:{{
@@ -129,56 +136,77 @@ import Welcome from "@/Jetstream/Welcome.vue";
                                 <p class="text-center"> {{ servicio.final_ruta_address }} </p>
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-center"> {{
-                                        JSON.parse(servicio.distancia_servicio).text
-                                }} </p>
+                                <p class="text-center">
+                                    {{ JSON.parse(servicio.distancia_servicio).text }}
+                                </p>
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-center"> {{
-                                        JSON.parse(
-                                            servicio.tiempo_aproximado_de_viaje
-                                        ).text
-                                }} </p>
+                                <p class="text-center">
+                                    {{ JSON.parse(servicio.tiempo_aproximado_de_viaje).text }}
+                                </p>
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-center">{{ new Intl.NumberFormat(['ban', 'id']).format(servicio.costo) }} </p>
+                                <p class="text-center">
+                                    <span
+                                        class="mt-2 px-4 py-2 rounded-full bg-green-500 text-white border border-green-300 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                                        $ {{ new Intl.NumberFormat(['ban', 'id']).format(servicio.costo) }}
+                                        <button class="bg-transparent hover focus:outline-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2 text-white" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+
+                                </p>
 
                             </td>
                             <td class="px-6 py-4">
-                                <p class="text-center">{{ servicio.estado }}</p>
+                                <span :class="servicio.estado == 'servicio aceptado : Conductor' ? 'bg-green-200': 'bg-yellow-200'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-black rounded">
+                                    {{ servicio.estado }}
+                                </span>
                             </td>
                             <td class="px-6 py-4">
                                 <div v-if="servicio.belong_to_user">
-                                    <div class="mt-3 flex -space-x-2 overflow-hidden place-content-center">
-                                        <img class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-                                            src="https://picsum.photos/200/300" alt="user" />
-                                    </div>
-                                    <div class="mt-3 text-sm font-medium">
-                                        <a href="#" class="text-blue-500 text-center">{{ servicio.belong_to_user.name }} </a>
-                                    </div>
+                                    <span
+                                        class="mx-4 rounded-full text-white bg-blue-500 font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max">
+                                        <img class="rounded-full w-14 h-14 max-w-none" alt="A"
+                                            src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg" />
+                                        <span class="flex items-center px-3 py-2">
+                                            John Doe
+                                        </span>
+                                        <button class="bg-transparent hover focus:outline-none">
+                                        </button>
+                                    </span>
                                 </div>
                                 <div v-else>
-                                    <p class="text-center" >Sin Usuario</p>
+                                    <p class="text-center">Sin Usuario</p>
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <div v-if="servicio.belong_to_driver">
-                                    <div class="mt-3 flex -space-x-2 overflow-hidden">
-                                        <img class="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-                                            src="https://picsum.photos/200/300" alt="user" />
-                                    </div>
-                                    <div class="mt-3 text-sm font-medium">
-                                        <a href="#" class="text-blue-500">{{ servicio.belong_to_driver.name }} </a>
-                                    </div>
+                                    <span
+                                        class="mx-4 rounded-full text-white bg-yellow-500 font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max">
+                                        <img class="rounded-full w-14 h-14 max-w-none" alt="A"
+                                            src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg" />
+                                        <span class="flex items-center px-3 py-2">
+                                            John Doe
+                                        </span>
+                                        <button class="bg-transparent hover focus:outline-none">
+
+                                        </button>
+                                    </span>
                                 </div>
                                 <div v-else>
                                     <p class="text-center">Sin conductor</p>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    <img src="https://img.icons8.com/material-outlined/160/000000/visible--v1.png" />
-                                </a>
+                            <td>
+                                <p class="text-center">
+                                    {{ servicio.created_at.substr(0, 10) }}
+                                    {{ servicio.created_at.substr(11, 8) }}
+                                </p>
                             </td>
                         </tr>
                     </tbody>
@@ -199,7 +227,8 @@ export default {
         };
     },
     mounted() {
-        this.getServicios(), this.echoListenEvent();
+        this.getServicios()
+        this.echoListenEvent();
     },
     methods: {
         async getServicios() {
@@ -219,13 +248,14 @@ export default {
                 });
                 var channel2 = this.pusher.subscribe("channel-response-resquest-drive");
                 channel2.bind("services-response-request-drive-event", function (data) {
-                     for (const element of el.servicios) {
-                        if(element.id == data.message.id){
-                            element.belong_to_driver = data.message.belong_to_driver
+                    for (const element of el.servicios) {
+                        if (element.id == data.message.id) {
+                            element.belong_to_driver = data.message.belong_to_driver;
+                            element.estado = data.message.estado;
                         }
-                     }
+                    }
                 });
-                
+
             } catch (error) {
                 console.log(error);
             }

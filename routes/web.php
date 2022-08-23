@@ -37,6 +37,10 @@ Route::middleware([
     Route::get('/users', function () {
         return Inertia::render('User-dashboard');
     })->name('users-dashboard');
+
+    Route::get('/reglas-de-negocios', function () {
+        return Inertia::render('Reglas-de-negocios');
+    })->name('reglas-de-negocios');
 });
 
 
