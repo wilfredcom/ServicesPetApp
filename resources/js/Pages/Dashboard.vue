@@ -148,10 +148,13 @@ import Welcome from "@/Jetstream/Welcome.vue";
                             <td class="px-6 py-4">
                                 <p class="text-center">
                                     <span
-                                        class="mt-2 px-4 py-2 rounded-full bg-green-500 text-white border border-green-300 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease">
+                                        class="mt-2 px-4 py-2 rounded-full border border-green-300 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease"
+                                        :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500 border-green-300  text-white': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500  text-white  border-red-300' : 'bg-yellow-200 border-yellow-200   text-black'  ">
                                         $ {{ new Intl.NumberFormat(['ban', 'id']).format(servicio.costo) }}
                                         <button class="bg-transparent hover focus:outline-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2 text-white" fill="none"
+                                            <svg xmlns="http://www.w3.org/2000/svg" 
+                                                class="h-6 w-6 ml-2 text-white" fill="none"
+                                                :class="servicio.estado == 'servicio aceptado' ? 'text-white': servicio.estado == 'Servicio Cancelado' ? ' text-white' : 'text-black'  "
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -163,7 +166,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
 
                             </td>
                             <td class="px-6 py-4">
-                                <span :class="servicio.estado == 'servicio aceptado : Conductor' ? 'bg-green-200': 'bg-yellow-200'" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  text-black rounded">
+                                <span :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500  text-black': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500 text-white ' : 'bg-yellow-200  text-black'  " class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  rounded">
                                     {{ servicio.estado }}
                                 </span>
                             </td>
@@ -251,6 +254,18 @@ export default {
                     for (const element of el.servicios) {
                         if (element.id == data.message.id) {
                             element.belong_to_driver = data.message.belong_to_driver;
+                            element.estado = data.message.estado;
+                        }
+                    }
+                });
+
+                var channel3 = this.pusher.subscribe("channel-response-cancel-service-user");
+                channel3.bind("services-response-cancel-service-user-event", function (data) {
+                    console.log({ data })
+                    for (const element of el.servicios) {
+
+                        if (element.id == data.message.id) {
+                            // element.belong_to_driver = data.message.belong_to_driver;
                             element.estado = data.message.estado;
                         }
                     }

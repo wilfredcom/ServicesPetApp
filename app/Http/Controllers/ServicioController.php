@@ -6,7 +6,9 @@ use App\Events\ServicesEvent;
 use App\Models\Servicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Events\ResponseRequestDriveEvent;
+use App\Events\{ResponseRequestDriveEvent, CancelServicioEvent};
+
+
 class ServicioController extends Controller
 {
     public function index()
@@ -72,6 +74,27 @@ class ServicioController extends Controller
                 ResponseRequestDriveEvent::dispatch($serv);
 
                 // return response()->json($servicio);
+
+            }, 5);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function cancelViaje(Request $request, $id_servicio = null)
+    {
+        try {
+            return DB::transaction(function()use ($request, $id_servicio) {
+                Servicio::where('id',$id_servicio)
+                ->where('user_id',$request['user_id'])
+                ->update([
+                    'estado' => $request['estado'],
+                ]);
+                $serv = Servicio::with(['belongToUser', 'belongToDriver'])->where('id', $id_servicio)->first();
+
+                CancelServicioEvent::dispatch($serv);
+
+                return response()->json($serv);
 
             }, 5);
         } catch (\Throwable $th) {
