@@ -11,6 +11,26 @@ use App\Events\{ResponseRequestDriveEvent, CancelServicioEvent};
 
 class ServicioController extends Controller
 {
+    public function indexDriver()
+    {
+        try {
+            /* 
+                SELECT *
+FROM servicios
+WHERE servicios.estado = 'solicitando servicio' 
+AND servicios.acept_servicio_driver IS NULL
+AND servicios.acept_servicio_user IS NUll
+            */
+            $servicios = Servicio::with(['belongToUser', 'belongToDriver'])
+                                ->where('estado', 'solicitando servicio')
+                                ->whereRaw('acept_servicio_driver IS NULL')
+                                ->whereRaw('acept_servicio_user IS NULL')
+                                ->orderBy('id', 'desc')->get();
+            return response()->json($servicios);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     public function index()
     {
         try {
@@ -88,6 +108,27 @@ class ServicioController extends Controller
                 Servicio::where('id',$id_servicio)
                 ->where('user_id',$request['user_id'])
                 ->update([
+                    'estado' => $request['estado'],
+                ]);
+                $serv = Servicio::with(['belongToUser', 'belongToDriver'])->where('id', $id_servicio)->first();
+
+                CancelServicioEvent::dispatch($serv);
+
+                return response()->json($serv);
+
+            }, 5);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+    public function rechazarViaje(Request $request, $id_servicio = null)
+    {
+        try {
+            return DB::transaction(function()use ($request, $id_servicio) {
+                Servicio::where('id',$id_servicio)
+                ->update([
+                    'acept_servicio_driver' => $request['rechazar'],
+                    'user_conductor_id' => $request['user_id'],
                     'estado' => $request['estado'],
                 ]);
                 $serv = Servicio::with(['belongToUser', 'belongToDriver'])->where('id', $id_servicio)->first();

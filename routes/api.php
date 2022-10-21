@@ -32,8 +32,10 @@ Route::get('/get-prestador-servicio', [PrestadorServicioController::class, 'inde
 
 Route::post('/store-servicio', [ServicioController::class, 'store']);
 Route::post('/cancel-servicio/{id_servicio?}', [ServicioController::class, 'cancelViaje']);
+Route::post('/rechazar-servicio/{id_servicio?}', [ServicioController::class, 'rechazarViaje']);
 Route::post('/store-servicio-drive', [ServicioController::class, 'storeResponseDrive']);
 
 Route::get('/get-servicios', [ServicioController::class, 'index']);
+Route::get('/get-servicios-driver', [ServicioController::class, 'indexDriver']);
 Route::post('/get-user', [UserController::class, 'getUser']);
 Route::get('/get-users', [UserController::class, 'index']);

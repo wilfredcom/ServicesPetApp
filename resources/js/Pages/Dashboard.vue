@@ -149,7 +149,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
                                 <p class="text-center">
                                     <span
                                         class="mt-2 px-4 py-2 rounded-full border border-green-300 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease"
-                                        :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500 border-green-300  text-white': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500  text-white  border-red-300' : 'bg-yellow-200 border-yellow-200   text-black'  ">
+                                        :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500 border-green-300  text-white': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500  text-white  border-red-300' : servicio.estado == 'Servicio cancelado por conductor' ? 'bg-orange-200  text-black  border-orange-200' : 'bg-yellow-200 border-yellow-200   text-black'  ">
                                         $ {{ new Intl.NumberFormat(['ban', 'id']).format(servicio.costo) }}
                                         <button class="bg-transparent hover focus:outline-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" 
@@ -166,7 +166,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
 
                             </td>
                             <td class="px-6 py-4">
-                                <span :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500  text-black': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500 text-white ' : 'bg-yellow-200  text-black'  " class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  rounded">
+                                <span :class="servicio.estado == 'servicio aceptado' ? 'bg-green-500  text-black': servicio.estado == 'Servicio Cancelado' ? 'bg-red-500 text-white ' : servicio.estado == 'Servicio cancelado por conductor' ? 'bg-orange-200  text-black  border-orange-200' : 'bg-yellow-200  text-black'  " class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold  rounded">
                                     {{ servicio.estado }}
                                 </span>
                             </td>
