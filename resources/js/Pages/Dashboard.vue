@@ -261,11 +261,10 @@ export default {
 
                 var channel3 = this.pusher.subscribe("channel-response-cancel-service-user");
                 channel3.bind("services-response-cancel-service-user-event", function (data) {
-                    console.log({ data })
                     for (const element of el.servicios) {
 
                         if (element.id == data.message.id) {
-                            // element.belong_to_driver = data.message.belong_to_driver;
+                            element.belong_to_driver = data.message.belong_to_driver;
                             element.estado = data.message.estado;
                         }
                     }

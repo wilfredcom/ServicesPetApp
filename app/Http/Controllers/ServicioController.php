@@ -109,6 +109,7 @@ AND servicios.acept_servicio_user IS NUll
                 ->where('user_id',$request['user_id'])
                 ->update([
                     'estado' => $request['estado'],
+                    'acept_servicio_user' => false
                 ]);
                 $serv = Servicio::with(['belongToUser', 'belongToDriver'])->where('id', $id_servicio)->first();
 
